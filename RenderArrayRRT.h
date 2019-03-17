@@ -18,7 +18,7 @@ public:
 
 public:
 	// Odziedzicz wszystkie konstruktory
-	RenderArrayRRT(ArrayRRT rrt);
+	RenderArrayRRT(const ArrayRRT& rrt);
 	~RenderArrayRRT();
 
 	void initBuffers() noexcept;

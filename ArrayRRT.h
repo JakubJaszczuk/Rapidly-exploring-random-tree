@@ -7,7 +7,6 @@
 #include <random>
 #include <iostream>
 #include "IRRT.h"
-//#include <SFML/Graphics>
 
 #ifndef ArrayRRT_H
 #define ArrayRRT_H

@@ -1,6 +1,6 @@
 #include "RenderArrayRRT.h"
 
-RenderArrayRRT::RenderArrayRRT(ArrayRRT rrt) : rrt(rrt){}
+RenderArrayRRT::RenderArrayRRT(const ArrayRRT& rrt) : rrt(rrt){}
 
 RenderArrayRRT::~RenderArrayRRT()
 {

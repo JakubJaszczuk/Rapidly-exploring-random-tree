@@ -55,10 +55,9 @@ std::size_t ArrayRRT::findClosestPoint(const glm::vec2& point) const noexcept
 {
 	std::size_t result = 0;
 	double currentDistance = std::numeric_limits<double>::infinity();
-	double distance;
 	for(size_t i = 0; i < points.size(); ++i)
 	{
-		distance = glm::distance(point, points[i]);
+		double distance = glm::distance(point, points[i]);
 		if(distance < currentDistance)
 		{
 			currentDistance = distance;
