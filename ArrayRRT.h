@@ -13,28 +13,26 @@
 
 class ArrayRRT : public IRRT
 {
-public:
+private:
+	std::knuth_b random {std::random_device{}()};
 	std::vector<glm::vec2> points;
 	std::vector<glm::uvec2> edges;
 	const double maxDistance = std::numeric_limits<double>::infinity();
 
 	bool lineSegmentIntersection(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& p3, const glm::vec2& p4) const noexcept;
-	std::size_t findClosestPoint(const glm::vec2& point) const noexcept;
-	glm::vec2 generateRandomPoint() const noexcept;
+	glm::vec2 generateRandomPoint() noexcept;
 
 public:
 	ArrayRRT(bool random = false) noexcept;
 	ArrayRRT(double maxDistance, bool random = false) noexcept;
 	ArrayRRT(double x, double y) noexcept;
 	ArrayRRT(double maxDistance, double x, double y) noexcept;
-	~ArrayRRT() = default;
 
-	auto& getPoints() const noexcept {return points;}
-	auto& getEdges() const noexcept {return edges;}
-
+	const auto& getPoints() const noexcept {return points;}
+	const auto& getEdges() const noexcept {return edges;}
 	void addPoint() noexcept override;
 	std::size_t size() const noexcept;
-
+	std::size_t findClosestPoint(const glm::vec2& point) const noexcept;
 	std::unordered_set<std::size_t> pointNeighbours(std::size_t index) const noexcept;
 	std::forward_list<std::size_t> pathBetweenPoints(std::size_t from, std::size_t to) const noexcept;
 };

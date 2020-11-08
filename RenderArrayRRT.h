@@ -19,7 +19,12 @@ public:
 public:
 	// Odziedzicz wszystkie konstruktory
 	RenderArrayRRT(const ArrayRRT& rrt);
-	~RenderArrayRRT();
+	RenderArrayRRT(ArrayRRT&& rrt);
+	RenderArrayRRT(const RenderArrayRRT& other) = default;
+	RenderArrayRRT(RenderArrayRRT&& other) = default;
+	RenderArrayRRT& operator=(const RenderArrayRRT& other) = default;
+	RenderArrayRRT& operator=(RenderArrayRRT&& other) = default;
+	virtual ~RenderArrayRRT();
 
 	void initBuffers() noexcept;
 	void addPoint() noexcept;

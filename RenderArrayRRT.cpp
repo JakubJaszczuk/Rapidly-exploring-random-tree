@@ -1,6 +1,7 @@
 #include "RenderArrayRRT.h"
 
-RenderArrayRRT::RenderArrayRRT(const ArrayRRT& rrt) : rrt(rrt){}
+RenderArrayRRT::RenderArrayRRT(const ArrayRRT& rrt) : rrt(rrt) {}
+RenderArrayRRT::RenderArrayRRT(ArrayRRT&& rrt) : rrt(rrt) {}
 
 RenderArrayRRT::~RenderArrayRRT()
 {
@@ -16,9 +17,9 @@ void RenderArrayRRT::initBuffers() noexcept
 {
 	// Bufory
 	glCreateBuffers(1, &vertexBuffer);
-	glNamedBufferData(vertexBuffer, rrt.points.size() * sizeof(glm::vec2), rrt.points.data(), GL_STATIC_DRAW);
+	glNamedBufferData(vertexBuffer, rrt.getPoints().size() * sizeof(glm::vec2), rrt.getPoints().data(), GL_STATIC_DRAW);
 	glCreateBuffers(1, &edgesIndicesBuffer);
-	glNamedBufferData(edgesIndicesBuffer, rrt.edges.size() * sizeof(glm::uvec2), rrt.edges.data(), GL_STATIC_DRAW);
+	glNamedBufferData(edgesIndicesBuffer, rrt.getEdges().size() * sizeof(glm::uvec2), rrt.getEdges().data(), GL_STATIC_DRAW);
 	// VAO
 	glCreateVertexArrays(1, &vertexArray);
 	glVertexArrayAttribFormat(vertexArray, 1, 2, GL_FLOAT, GL_FALSE, 0);
@@ -49,7 +50,6 @@ std::size_t RenderArrayRRT::size() const noexcept
 	return rrt.size();
 }
 
-
 void RenderArrayRRT::draw(const GLfloat* transform) const noexcept
 {
 	glPointSize(2);
@@ -58,9 +58,9 @@ void RenderArrayRRT::draw(const GLfloat* transform) const noexcept
 	glUseProgram(program);
 	glUniformMatrix4fv(0, 1, false, transform);
 	glUniform4f(2, 0.5, 0.7, 0.9, 1.0);
-	glDrawElements(GL_LINES, rrt.edges.size() * sizeof(glm::uvec2), GL_UNSIGNED_INT, nullptr);
+	glDrawElements(GL_LINES, rrt.getEdges().size() * sizeof(glm::uvec2), GL_UNSIGNED_INT, nullptr);
 	glUniform4f(2, 0.3, 1.0, 0.4, 1.0);
-	glDrawArrays(GL_POINTS, 0, rrt.points.size());
+	glDrawArrays(GL_POINTS, 0, rrt.getPoints().size());
 	// Ścieżka
 	glLineWidth(2);
 	glBindVertexArray(pathArray);

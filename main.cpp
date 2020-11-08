@@ -7,10 +7,14 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "RenderArrayRRT.h"
 
-int main()
+int main(int argc, char const* argv[])
 {
-	RenderArrayRRT rrt(ArrayRRT(0.05, true));
-	while(rrt.size() < 10000)
+	double maxDistance = 0.05;
+	uint32_t count = 10000;
+	if(argc > 1) maxDistance = std::atof(argv[1]);
+	if(argc > 2) count = std::atoi(argv[2]);
+	RenderArrayRRT rrt(ArrayRRT(maxDistance, true));
+	while(rrt.size() < count)
 	{
 		rrt.addPoint();
 	}
@@ -101,7 +105,7 @@ int main()
 				const glm::vec2 position = glm::inverse(view) * glm::vec4(x, y, 0, 1);
 				// Wybranie punktu
 				auto closest = rrt.rrt.findClosestPoint(position);
-				if(glm::distance(rrt.rrt.points[closest], position) < 0.01)
+				if(glm::distance(rrt.rrt.getPoints()[closest], position) < 0.01)
 				{
 					if(event.key.code == sf::Keyboard::Q)
 					{

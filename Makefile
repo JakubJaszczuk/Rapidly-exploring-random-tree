@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -Wextra -O3 -g
+CXXFLAGS = -Wall -Wextra -O3 -march=native -std=c++17
 LDFLAGS = -lGLEW -lGL -lsfml-system -lsfml-window
 TARGET = rrt
 SRCS = $(wildcard *.cpp)

@@ -57,7 +57,7 @@ std::size_t ArrayRRT::findClosestPoint(const glm::vec2& point) const noexcept
 	double currentDistance = std::numeric_limits<double>::infinity();
 	for(size_t i = 0; i < points.size(); ++i)
 	{
-		double distance = glm::distance(point, points[i]);
+		const double distance = glm::distance(point, points[i]);
 		if(distance < currentDistance)
 		{
 			currentDistance = distance;
@@ -67,11 +67,8 @@ std::size_t ArrayRRT::findClosestPoint(const glm::vec2& point) const noexcept
 	return result;
 }
 
-glm::vec2 ArrayRRT::generateRandomPoint() const noexcept
+glm::vec2 ArrayRRT::generateRandomPoint() noexcept
 {
-	glm::vec2 p;
-	std::random_device rd;
-	std::knuth_b random(rd());
 	std::uniform_real_distribution<> distribution(0.0, 1.0);
 	double x = distribution(random);
 	double y = distribution(random);
@@ -81,9 +78,9 @@ glm::vec2 ArrayRRT::generateRandomPoint() const noexcept
 void ArrayRRT::addPoint() noexcept
 {
 	// Generuj losowy punkt
-	auto point = generateRandomPoint();
+	const auto point = generateRandomPoint();
 	// Znajdź najbliższy punkt należący do drzewa
-	auto closestPoint = findClosestPoint(point);
+	const auto closestPoint = findClosestPoint(point);
 	// Zakończ jeżeli punkt jest za daleko
 	if(glm::distance(point, points[closestPoint]) > maxDistance) return;
 	// Sprawdż czy krawędż jest możliwa do utworzenia
